@@ -14,6 +14,10 @@ export default function Phonebook() {
     );
     const [filter, setFilter] = useState('');
 
+    useEffect (() => {
+        window.localStorage.setItem('contacts', JSON.stringify(contacts));
+    }, [contacts]);
+
     const formSubmitHandler = ( name, number ) => {
         const alreadyAddedContact = contacts.find(contact => contact.name === name);
         if (alreadyAddedContact) {
@@ -30,10 +34,6 @@ export default function Phonebook() {
     const deleteContact = (contactId) => {
         setContacts(contacts.filter(contact => contact.id !== contactId));
     };
-
-    useEffect (() => {
-        window.localStorage.setItem('contacts', JSON.stringify(contacts));
-    }, [contacts]);
 
     const toLowerCase = filter.toLowerCase();
     const showContacts = contacts.filter(contact =>
